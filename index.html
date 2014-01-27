@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ds.tmpl - laoshu133.com</title>
+	<style type="text/css">
+	/* Debug */
+	body, h1, h2{ font-family:"\5FAE\8F6F\96C5\9ED1","Microsoft Yahei",Arial;}
+	body{ font-size:13px; margin:0 auto; padding-top:20px; width:600px;}
+	.item{ border-top:1px dotted #ddd; border-bottom:1px solid #ddd; margin-bottom:40px;}
+	.item h4{ margin-bottom:5px;}
+	.out{ background:#F8F8F8; border:1px dashed #E8E8E8; margin-bottom:10px; padding:10px;}
+	.sh_sourceCode code{ line-height:1.5 !important;}
+	</style>
+	<script type="text/javascript" src="ds.tmpl.js"></script>
+	<script type="text/javascript">
+	ds.$d = function(id){
+		return document.getElementById(id);
+	}
+	</script>
+</head>
+<body>
+	<div class="item" style="border-width:0 0 2px;">
+		<h1>ds.tmpl - 简单模板引擎</h1>
+		<div class="info" style=" border-top:1px dotted #ddd;">
+			<ol>
+				<li>小！</li>
+				<li>快！</li>
+				<li><!-- 完善的<a href="#all_option">配置参数</a>&emsp; --><a href="ds.tmpl.js" target="_blank">ds.tmpl.js(未压缩)</a></li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="item">
+		<h2>基础语法</h2>
+		<div class="code">
+<pre class="sh_html"><code>
+<script type="text/javascript">
+var data = {
+	title: 'ds.tmpl',
+	list: [
+		{user:'Laoshu133', site:'http://laoshu133.com'},
+		{user:'weiphone', site:'http://weiphone.com'}
+	]
+}
+</script>
+<script id="ds_tmpl_1" type="text/tmpl">
+	<dl>
+		<dt><strong><%=title%></strong></dt>
+		<% for(var i = 0, l = list.length; i < l; i ++){ %>
+		<dd>
+			<a href="<%=list[i].site%>" target="_blank"><%=list[i].user%></a>
+			<%if(list[i].user === "weiphone"){%>
+				(<strong>Hot</strong>)
+			<%}%>
+		</dd>
+		<% } %>
+	</dl>
+</script>
+</code></pre>
+		</div>
+		<h4>输出:</h4>
+		<div id="ds_tmpl_out_1" class="out"></div>
+		<script type="text/javascript">
+		var html = ds.tmpl(ds.$d('ds_tmpl_1').innerHTML, {
+			title: 'ds.tmpl',
+			list: [
+				{user:'Laoshu133', site:'http://laoshu133.com'},
+				{user:'weiphone', site:'http://weiphone.com'}
+			]
+		});
+		ds.$d('ds_tmpl_out_1').innerHTML = html;
+		</script>
+	</div>
+	
+	<div class="item">
+		<h2>畸形测试</h2>
+		<div class="code">
+<pre class="sh_html"><code>
+<script type="text/javascript">
+var data = {}
+</script>
+<script id="ds_tmpl_2" type="text/tmpl">
+<% 
+	var i = 0;
+	var ret = i + "1\'3\"3" + "\\n" + '9\'9\"99';
+%>
+<%=ret%>
+<br />
+<%=1111%>
+</script>
+</code></pre>
+		</div>
+		<h4>输出:</h4>
+		<div id="ds_tmpl_out_2" class="out"></div>
+		<script type="text/javascript">
+		var html = ds.tmpl(ds.$d('ds_tmpl_2').innerHTML, {});
+		ds.$d('ds_tmpl_out_2').innerHTML = html;
+		</script>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- 代码高亮 -->
+	<script type="text/javascript">
+	(function(){
+		var code, codeElem, codes = document.getElementsByTagName('pre'), i = 0, len = codes.length;
+		function convertHTML(str){
+			var maps = {
+				'<': '&lt;',
+				'>': '&gt;'
+			};
+			str = str.replace(/(<\/?)([A-Z]+)/g, function(a, tag_pre, tag){
+				return tag_pre + tag.toLowerCase();
+			});
+			for(var k in maps){
+				str = str.replace(new RegExp(k, 'g'), maps[k]);
+			}
+			return str;
+		}
+		for(; i<len; i++){
+			codeElem = codes[i].getElementsByTagName('code')[0];
+			code = codeElem.innerHTML;
+			codeElem.innerHTML = convertHTML(code);
+		}
+	})();
+	</script>
+	<script type="text/javascript" src="/PLUGIN/DsLighter/ds.in.js"></script>
+	<script type="text/javascript" src="/PLUGIN/DsLighter/ds.lighter.js"></script>
+	
+	<!-- <script type="text/javascript" src="/51_min.js"></script> -->
+</body>
+</html>
